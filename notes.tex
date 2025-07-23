@@ -1,0 +1,219 @@
+\documentclass{article}
+
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amscd}
+\usepackage{amsfonts}
+\usepackage{bbm}
+\usepackage{dsfont}
+\usepackage{mathrsfs}
+\usepackage{fullpage}
+\usepackage{comment}
+\usepackage{color}
+\usepackage{latexsym}
+\usepackage[all]{xy}
+\usepackage{mathtools}
+\usepackage{geometry}
+\usepackage{tikz-cd}
+\usepackage{xparse}
+\usepackage[OT1]{fontenc}
+\usepackage{atbegshi}
+\usepackage[new]{old-arrows}
+\usepackage[shortlabels]{enumitem}
+\usepackage{array}
+\usepackage{lipsum}
+\usepackage[table]{xcolor}
+\usepackage {pgfplots}
+\usepackage{faktor}
+\usepackage{subfiles}
+\usepackage{tcolorbox}
+
+% defining theorem environments
+\tcbuselibrary{theorems}
+
+\newtcbtheorem[number within=section]
+              {mytheorem}
+              {Mytheorem}
+              {colback=yellow!5!white,
+                colframe=yellow!50!black,
+                colbacktitle=yellow!75!black}
+              {mytheorem}
+
+\newtcbtheorem[use counter from=mytheorem]
+              {defi}
+              {Definition}
+              {colback=yellow!5!white,
+                colframe=yellow!50!black,
+                colbacktitle=yellow!75!black}
+              {defi}
+
+\newtcbtheorem[use counter from=mytheorem]
+              {theo}
+              {Theorem}
+              {colback=yellow!5!white,
+                colframe=yellow!50!black,
+                colbacktitle=yellow!75!black}
+              {theo}
+
+\newtcbtheorem[use counter from=mytheorem]
+              {lemm}
+              {Lemma}
+              {colback=yellow!5!white,
+                colframe=yellow!50!black,
+                colbacktitle=yellow!75!black}
+              {lemm}
+
+\newtcbtheorem[use counter from=mytheorem]
+              {prop}
+              {Proposition}
+              {colback=yellow!5!white,
+                colframe=yellow!50!black,
+                colbacktitle=yellow!75!black}
+              {prop}
+
+\newtcbtheorem[use counter from=mytheorem]
+              {cor}
+              {Corollary}
+              {colback=yellow!5!white,
+                colframe=yellow!50!black,
+                colbacktitle=yellow!75!black}
+              {cor}
+
+\newtcbtheorem[use counter from=mytheorem]
+              {rem}
+              {Remark}
+              {colback=yellow!5!white,
+                colframe=yellow!50!black,
+                colbacktitle=yellow!75!black}
+              {rem}
+
+\newtcbtheorem[use counter from=mytheorem]
+              {ex}
+              {Example}
+              {colback=yellow!5!red!5!white,
+                colframe=red!20!white!50!black,
+                colbacktitle=yellow!5!red!5!white,
+                coltitle=black,
+                arc=0mm}
+              {ex}
+
+\newtcbtheorem[use counter from=mytheorem]
+              {exs}
+              {Examples}
+              {colback=yellow!5!red!5!white,
+                colframe=red!20!white!50!black,
+                colbacktitle=yellow!5!red!5!white,
+                coltitle=black,
+                arc=0mm}
+              {exs}
+
+\newcommand{\bA}{{\mathbb{A}}}
+\newcommand{\bD}{{\mathbb{D}}}
+\newcommand{\bP}{{\mathbb{P}}}
+\newcommand{\bH}{{\mathbb{H}}}
+\newcommand{\bN}{{\mathbb{N}}}
+\newcommand{\bZ}{{\mathbb{Z}}}
+\newcommand{\bQ}{{\mathbb{Q}}}
+\newcommand{\bC}{{\mathbb{C}}}
+\newcommand{\bR}{{\mathbb{R}}}
+\newcommand{\bF}{{\mathbb{F}}}
+\newcommand{\bM}{{\mathbb{M}}}
+
+\newcommand{\cA}{{\mathcal{A}}}
+\newcommand{\cB}{{\mathcal{B}}}
+\newcommand{\cC}{{\mathcal{C}}}
+\newcommand{\cD}{{\mathcal{D}}}
+\newcommand{\cE}{{\mathcal{E}}}
+\newcommand{\cF}{{\mathcal{F}}}
+\newcommand{\cG}{{\mathcal{G}}}
+\newcommand{\cH}{{\mathcal{H}}}
+\newcommand{\cI}{{\mathcal{I}}}
+\newcommand{\cJ}{{\mathcal{J}}}
+\newcommand{\cL}{{\mathcal{L}}}
+\newcommand{\cM}{{\mathcal{M}}}
+\newcommand{\cO}{{\mathcal{O}}}
+\newcommand{\cP}{{\mathcal{P}}}
+\newcommand{\cR}{{\mathcal{R}}}
+
+\newcommand{\fa}{{\mathfrak{a}}}
+\newcommand{\fb}{{\mathfrak{b}}}
+\newcommand{\fm}{{\mathfrak{m}}}
+\newcommand{\fp}{{\mathfrak{p}}}
+\newcommand{\fq}{{\mathfrak{q}}}
+
+\newcommand{\uA}{{\underline{A}}}
+\newcommand{\uB}{{\underline{B}}}
+\newcommand{\uC}{{\underline{C}}}
+\newcommand{\uD}{{\underline{D}}}
+\newcommand{\uE}{{\underline{E}}}
+\newcommand{\uF}{{\underline{F}}}
+\newcommand{\uG}{{\underline{G}}}
+\newcommand{\uH}{{\underline{H}}}
+\newcommand{\uI}{{\underline{I}}}
+\newcommand{\uJ}{{\underline{J}}}
+\newcommand{\uK}{{\underline{K}}}
+\newcommand{\uL}{{\underline{L}}}
+\newcommand{\uM}{{\underline{M}}}
+\newcommand{\uN}{{\underline{N}}}
+\newcommand{\uO}{{\underline{O}}}
+\newcommand{\uP}{{\underline{P}}}
+\newcommand{\uQ}{{\underline{Q}}}
+\newcommand{\uR}{{\underline{R}}}
+\newcommand{\uS}{{\underline{S}}}
+\newcommand{\uT}{{\underline{T}}}
+\newcommand{\uU}{{\underline{U}}}
+\newcommand{\uV}{{\underline{V}}}
+
+
+
+\DeclareMathOperator{\max}{max}
+\DeclareMathOperator{\min}{min}
+\DeclareMathOperator{\ev}{ev}
+
+\newcommand{\xrightarrowdbl}[2][]{%
+  \xrightarrow[#1]{#2}\mathrel{\mkern-14mu}\rightarrow
+}
+
+\setcounter{section}{-1}
+              
+\begin{document}
+
+\begin{center}
+  {\LARGE
+  \textbf{Algebraic Geometry 1}}
+
+  \vspace{2cm}
+  
+  \large
+  Lecture notes based on the lecture in algebraic geometry by Prof. Dr. Eike Lau
+  in summer semester 2025
+
+  \vspace{0.5cm}
+  
+  \vfill
+  
+  \hrulefill
+
+  \vspace{0.5cm}
+
+  \normalsize
+  \textit{Contributors: Artem Polev}
+  
+\end{center}
+
+\newpage
+
+\section{Introduction}
+
+\subfile{sections/introduction}
+
+\section{Commutative Rings and Ideals}
+
+\subfile{sections/commutative_rings_and_ideals}
+
+\section{Algebraic Sets}
+
+\subfile{sections/algebraic_sets}
+
+\end{document}

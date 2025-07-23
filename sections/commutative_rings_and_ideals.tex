@@ -1,0 +1,532 @@
+\documentclass[../notes.tex]{subfiles}
+
+\begin{document}
+
+In the following lecture we will always consider a ring to be commutative and to have a unit.
+
+\smallskip
+\begin{defi}{}{}
+  Let $R$ be a ring. A subset $I \subseteq R$ is called an ideal if $I \subseteq R$ is a subgroup
+  with respect to addition and $a \in R$ and $b \in I$ implies $ab \in I$.
+\end{defi}
+
+\smallskip
+\noindent
+Assume just the first property for $I \subseteq R$. So let $I \subseteq R$ be a subgroup
+with respect to addition. So we get a homomorphism of abelian groups
+\begin{align*}
+  \pi : R & \longrightarrow \faktor{R}{I} \\
+  a & \longmapsto a + I
+\end{align*}
+and the following lemma:
+
+\smallskip
+\begin{lemm}{}{}
+  The abelian group $R / I$ carries a ring structure such that $\pi$ is a ring homomorphism
+  if and only if $I$ is an ideal.
+\end{lemm}
+
+\begin{proof}
+  Assume $R / I$ carries a well defined multiplication such that $\pi$ is a ring homomorphism.
+  Let now $a \in R$ and $b \in I$. So it follows that
+  \begin{align*}
+    \pi(ab) = \pi(a) \pi(b) =(a + I) \cdot (b + I) = (a + I) \cdot (0 + I) = 0 + I
+  \end{align*}
+  and on the other hand $\pi(ab) = ab + I$. Hence $ab \in I$ and $I$ is an ideal.
+
+  \noindent
+  Conversely if $I$ is an ideal we can define the multiplication structure on $R/I$
+  by $(x + I)(y + I) = xy + I$. It is easy to check that this definition does not depend
+  on the chosen representatives $x,y \in R$ and that $\pi$ becomes a ring homomorphism.
+  
+\end{proof}
+
+\smallskip
+\begin{ex}{}{}
+  For $n \in \bN$ the ideal $n \bZ \subset \bZ$ results in the quotient ring $\bZ / n \bZ$.
+
+  \smallskip
+  \noindent
+  A common quotient ring we will encounter is given by a subset $M \subset k[T_1, \dots, T_n]$
+  and the ideal $(M)$. So the smallest ideal in $k[T_1, \dots, T_n]$, which contains $M$.
+  The ring is then $k[T_1, \dots, T_n] / (M)$.
+\end{ex}
+
+\smallskip
+\noindent
+It turns out that this quotient construction satisfies the following universal property:
+
+\smallskip
+\begin{lemm}{Universal property of the quotient ring}{}
+  Let $R \xrightarrow{\varphi} S$ be a ring homomorphism and $I \subseteq R$ be an ideal.
+  If $\varphi(I) = \{0\}$ then there exists a unique ring homomorphism
+  $\overline{\varphi}: R/I \to S$ such that the following diagram commutes:
+  \begin{center}
+    \begin{tikzcd}
+      R \arrow[rr, "\varphi"] \arrow[dr, "\pi"'] & & S \\
+      & \faktor{R}{I} \arrow[ru, "\exists ! \; \overline{\varphi}"', dashed] &
+    \end{tikzcd}
+  \end{center}
+\end{lemm}
+
+\begin{proof}
+  We define the morphism $\overline{\varphi}$ by $\overline{\varphi}(a + I) = \varphi(a)$.
+  First it should be mentioned that if $a,b \in R$ with $a - b \in I$ then
+  \begin{align*}
+    \overline{\varphi}(b + I) = \varphi(b) + \varphi(a - b) = \varphi(a) =
+    \overline{\varphi}(a + I)
+  \end{align*}
+  and the definition $\overline{\varphi}$ does not depend on representatives. Second it should
+  be checked that $\overline{\varphi}$ is indeed a ring homomorphism. So we compute
+  for $a,b \in R$ that
+  \begin{align*}
+    \overline{\varphi}((a + I) + (b + I)) = \overline{\varphi}(a + b + I) = \varphi(a + b)
+    = \varphi(a) + \varphi(b) = \overline{\varphi}(a + I) + \overline{\varphi}(b + I).
+  \end{align*}
+  The computation for multiplication is analogous. Lastly it is easy to see that
+  $\overline{\varphi}(1 + I) = \varphi(1) = 1$ and so $\overline{\varphi}$ is a ring
+  homomorphism.
+  The fact that $\varphi = \overline{\varphi} \circ \pi$ immediately follows from the
+  definition.
+
+  \smallskip
+  \noindent
+  It only remains to check that $\overline{\varphi}$ is unique with this property.
+  Let $\tilde{\varphi}: R/I \to S$ be another ring homomorphism such that
+  $\varphi = \tilde{\varphi} \circ \pi$. Then it follows that
+  \begin{align*}
+    \tilde{\varphi}(a + I) = \varphi(a) = \overline{\varphi}(a + I)
+  \end{align*}
+  and hence that $\overline{\varphi}$ is unique.
+  
+\end{proof}
+
+\subsection{Noetherian rings}
+
+\begin{defi}{}{}
+  A ring $R$ is called noetherian if every ideal $I \subseteq R$ is finitely generated.
+  That is for every ideal $I \subseteq R$ there exists a finite subset $M \subseteq R$
+  such that $I$ is the smallest ideal which contains $M$. We denote this with $I = (M)$.
+\end{defi}
+
+\smallskip
+\noindent
+This definition is characterized by an eqivalent property stated in the following lemma.
+
+\smallskip
+\begin{lemm}{Ascending chain condition}{}
+  A ring $R$ is noetherian if and only if for every ascending chain
+  \begin{align*}
+    I_1 \subseteq I_2 \subseteq I_3 \subseteq I_4 \subseteq \cdots
+  \end{align*}
+  of ideals $I_j \subseteq R$ there exists an index $n \in \bN$ such that for
+  all $m \geq n$ we have $I_m = I_n$.
+\end{lemm}
+
+\begin{proof}
+  Assume that $R$ is not noetherian and let $I \subseteq R$ be an ideal that is not finitely
+  generated. Then for every finitely generated ideal $I' \subseteq I$ there exists an
+  element $f \in I \setminus I'$. We construct an ascending chain of ideals by defining
+  $I_0 \coloneqq \{0\}$ and for every $n \in \bN$ choosing an elemnt $f_n \in I \setminus I_n$
+  and setting $I_{n+1} \coloneqq (I_n \cup \{f_n\})$. By definition this is an ascending
+  chain of ideals that at no step has an equality.
+
+  \smallskip
+  \noindent
+  Assume now that $R$ is noetherian and consider an ascending chain of ideals
+  \begin{align*}
+    I_1 \subseteq I_2 \subseteq I_3 \subseteq I_4 \subseteq \cdots.
+  \end{align*}
+  Then the set $I = \bigcup_{n \in \bN} I_n$ is an ideal. For $a,b \in I$ there exists an
+  $n \in \bN$ such that $a,b \in I_n$ and hence $a + b \in I_n$ which implies $a + b \in I_n$.
+  Similarly if $a \in R$ and $b \in I$ then there is an $n \in \bN$ such that $b \in I_n$
+  and thus $ab \in I_n$ which implies $ab \in I$.
+
+  \noindent
+  Due to $R$ being noetherian we get that $I$ is finitely generated. Let
+  $\{f_1, \dots, f_n\} \subset I$ be a finite generating set. We then define
+  \begin{align*}.
+    m \coloneqq \max \{l \in \bN \mid \exists i \in \{1, \dots, n\}: \; f_i \notin I_l\}.
+  \end{align*}
+  Since for every $f_i$ there exists an index $l \in \bN$ such that $f_i \in I_l$ this subset
+  of $\bN$ is bounded from above and hence contains a largest element.
+  Now from $I_{m+1} \subseteq I$ and $\{f_1, \dots, f_n\} \subseteq I_{m+1}$ follows
+  $I_{m+1} = I$ and hence
+  \begin{align*}
+    I_{m+1} = I_{m+2} = I_{m+3} = I_{m+4} = \cdots.
+  \end{align*}
+  
+\end{proof}
+
+\smallskip
+\noindent
+There are some ways to easily construct noetherian rings out of known noetherian rings.
+The following lemma gives one such way.
+
+\smallskip
+\begin{lemm}{}{}
+  If $R \xrightarrowdbl[]{\pi} R'$ is a surjective ring homomorphism and $R$ is
+  noetherian then $R'$ is noetherian.
+\end{lemm}
+
+\begin{proof}
+  Let $I \subseteq R'$ be an ideal. Then $\pi^{-1}(I)$ is an ideal
+  and finitely generated by assumption. Let $\{f_1, \dots, f_n\} \subseteq \pi^{-1}(I)$
+  be a generating set of $\pi^{-1}(I)$. Then we claim that
+  $I = (\pi(f_1), \dots, \pi(f_n))$. Clearly we have $I \supseteq (\pi(f_1), \dots, \pi(f_n))$,
+  since $\pi(f_i) \in I$ is equivalent to $f_i \in \pi^{-1}(I)$. If $f' \in I$
+  then there exists $f \in R$ with $\pi(f) = f'$ and so $f \in \pi^{-1}(I)$.
+  Therefore $f$ can be written as $f = \sum_{i = 1}^n g_i f_i$ with some $g_i \in R$.
+  It follows that $f' = \pi(f) = \sum_{i = 1} \pi(g_i) \pi(f_i) \in (\pi(f_1), \dots, \pi(f_n))$.
+
+  \smallskip
+  \noindent
+  With the equality shown it follows that $I$ is finitely generated.
+  
+\end{proof}
+
+\smallskip
+\noindent
+Another way of finding new noetherian rings is given by the following theorem.
+
+\smallskip
+\begin{theo}{Hilbert's basis theorem}{}
+  If $R$ is noetherian then $R[T]$ is noetherian.
+\end{theo}
+
+\smallskip
+\noindent
+Before we prove the theorem we formulate a few conclusions from the theorem and the previous
+lemma. Additionally we need a preliminary lemma in the proof of the theorem.
+
+\smallskip
+\begin{cor}{}{}
+  If $R$ is noetherian and $n \in \bN$ then $R[T_1, \dots, T_n]$ is noetherian.
+  If $I \subset R[T_1, \dots, T_n]$ is an ideal then $R[T_1, \dots, T_n]/I$ is noetherian.
+\end{cor}
+
+\begin{proof}
+  The first part of the statement follows from the theorem and induction by $n$.
+  The second part of the statement follows from the lemma and the first part of the
+  statement.
+\end{proof}
+
+\begin{lemm}{}{}
+  \label{fin_subgen}
+  Let $R$ be a ring and the ideal $I \subseteq R$ be finitely generated. Let furthermore
+  $M \subseteq I$ be a generating set of $I$. Then there exists a finite subset
+  $M' \subseteq M$ that generates $I$
+\end{lemm}
+
+\begin{proof}
+  Let $\{f_1, \dots, f_m\}$ be a finite generating set for $I$.
+  Then for every $i \in \{1, \dots, n\}$ we can write
+  \begin{align*}
+    f_i = \sum_{g \in M} b_{ig} g
+  \end{align*}
+  while almost all $b_{ig}$ vanish. So the set
+  \begin{align*}
+    M' \coloneqq \{g \in M \mid \exists i \in \{1, \dots, n\}: \; b_{ig} \neq 0\}
+  \end{align*}
+  is finite and we claim that $M'$ generates $I$.
+  The inclusion $(M') \subseteq I$ is clear. So assume that $h \in I$.
+  Becuase the $f_i$ generate $I$ it follows that there exist $a_1, \dots, a_n \in R$ such that
+  \begin{align*}
+    h = \sum_{i = 1}^n a_i f_i = \sum_{i = 1}^n \sum_{g \in M'} a_i b_{ig} g
+    =  \sum_{g \in M'} \left( \sum_{i = 1}^n a_i b_{ig} \right) g
+  \end{align*}
+  and hence $h \in (M')$
+\end{proof}
+
+\begin{proof}[Proof of Hilbert's basis theorem]
+  Assume $R[T]$ is not noetherian and let $I \subseteq R[T]$ be an ideal which is not finitely
+  generated. Choose a polynomial $f_1 \in I$ of minimal degree $n_1$. For every $i \in \bN$
+  choose a polynomial $f_i \in I \setminus (f_1, \dots, f_{i-1})$ of minimal degree $n_i$.
+  Note that for $i \leq j$ we get $n_i \leq n_j$. For all $i \in \bN$ we denote the leading
+  coefficient of $f_i$ with $a_i$. Since $R$ is noetherian it follows that
+  $(a_i \mid i \in \bN) \subseteq R$ is finitely generated. By Lemma 1.10
+  there exists an $m \in \bN$ such that $(a_1, \dots, a_m) = (a_i \mid i \in \bN)$
+  and in particular there are $b_1, \dots, b_m \in R$ such that
+  \begin{align*}
+    a_{m+1} = \sum_{i = 1}^m b_i a_i.
+  \end{align*}
+  With that we set
+  \begin{align*}
+    g \coloneqq f_{m+1} - \sum_{i = 1}^m b_i T^{n_{m+1} - n_i} f_i
+  \end{align*}
+  Then we get that the $n_{m+1}$-th coefficient of $g$ vanishes and hence that
+  $g$ is of lower degree than $f_{m+1}$. At the same time it must be the case that
+  $g \in I \setminus (f_1, \dots, f_m)$, because if $g \in (f_1, \dots, f_m)$
+  then
+  \begin{align*}
+    f_{m+1} = g + \sum_{i = 1}^m b_i T^{n_{m+1} - n_i} f_i \in (f_1, \dots, f_m)
+  \end{align*}
+  and that is not the case by the choice of $f_{m+1}$. But now $g$ being of lower
+  degree than $f_{m+1}$ and $g \in I \setminus (f_1, \dots, f_m)$ contradicts the
+  minimality of $n_{m+1}$. So the assumption that $I$ is not finitely generated
+  must have been wrong.
+
+\end{proof}
+
+\begin{rem}{}{}
+  We just showed that $k[T_1, T_2]$ and $\bZ[T]$ are noetherian. But even though
+  every ideal $I$ in these rings is finitely generated, we can choose
+  $I$ to require arbitrarily large (finite) generating sets.
+\end{rem}
+
+\begin{proof}
+  
+\end{proof}
+
+\subsection{Units}
+
+\begin{defi}{}{}
+  Let $R$ be a ring. We call the elements of the set
+  \begin{align*}
+    R^* = \{x \in R \mid \exists y \in R: \; xy = 1\}
+  \end{align*}
+  the units in $R$.
+\end{defi}
+
+\smallskip
+
+\begin{rem}{}{}
+  Given $x \in R*$ the corresponding $y \in R$ with $xy = 1$ is unique.
+  We denote this element with $x^{-1}$.
+\end{rem}
+
+\begin{proof}
+  Let $y,y' \in R$ with $xy = xy' = 1$. Then we have $y = (xy')y = (xy)y' = y'$.
+\end{proof}
+
+\smallskip
+
+\begin{defi}{}{}
+  Let $R$ be a ring. A subset $S \subseteq R$ is called multiplicative if $1 \in S$
+  and for all $a,b \in S$ it follows that $ab \in S$.
+\end{defi}
+
+\smallskip
+\noindent Consider a ring $R$ and a multiplicative subset $S \subseteq R$.
+The aim is to construct the ring of fractions which have only elements of $R$ as
+enumerators and elements of $S$ as denominatos.
+
+\smallskip
+\begin{lemm}{}{}
+  Define the relation $\sim$ on $R \times S$ by
+  \begin{align*}
+    (x,s) \sim (y,t) \quad :\Leftrightarrow \quad \exists u \in S: \; xtu = ysu.
+  \end{align*}
+  Then $\sim$ is an equivalence relation whose equivalence classes we denote by
+  $[(x,s)]_{\sim} = \frac{x}{s}$.
+\end{lemm}
+
+\begin{proof}
+  Form the definition reflexivity and symmetry are clear. Transitivity requires a short
+  calculation. Let $(x,s) \sim (y,t)$ and $(y,t) \sim (z,u)$. so there
+  exist $a,b \in S$ with $xta = ysa$ and $yub = ztb$. It follows that
+  \begin{align*}
+    xu(tab) = xta(ub) = ysa(ub) = yub(sa) = ztb(sa) = zs(tab)
+  \end{align*}
+  and so with $tab \in S$ we get $(x,s) \sim (z,u)$.
+\end{proof}
+
+\begin{lemm}{}{}
+  For a ring $R$ and a multiplicaive subset $S \subseteq R$ we denote with
+  \begin{align*}
+    S^{-1}R = \left\{\frac{x}{s} \mid x \in R, \; s \in S\right\}
+  \end{align*}
+  the set of equivalence classes from the previous lemma. On this set we define an
+  addition and a multiplication by
+  \begin{align*}
+    \frac{x}{s} + \frac{y}{t} = \frac{xt + ys}{st}
+  \end{align*}
+  and
+  \begin{align*}
+    \frac{x}{s} \cdot \frac{y}{s} = \frac{xy}{st}
+  \end{align*}
+  respectively. Then $S^{-1}R$ together with thes operations is a ring which we
+  call the localization of $R$ by $S$.
+\end{lemm}
+
+\begin{proof}
+  It is clear that the addition an multiplication are commutative and associative. Furthermore
+  it is easy to see that $\frac{0}{1}$ is a neutral element with respect to addition
+  and $\frac{1}{1}$ is neutral with respect to multiplication.
+  It remains to check thhat both operations are well-defined and that
+  multiplicaton distributes over addition. Let $(x,s) \sim (x',s')$ and
+  $(y,t) \sim (y', t')$. So there are $u,v \in S$ such that $xs'u = x'su$ and
+  $yt'v = y'tv$. Then we get
+  \begin{align*}
+    \frac{x}{s} + \frac{y}{t} = \frac{xt + ys}{st} = \frac{xts't'uv + yss't'uv}{sts't'uv}
+    = \frac{x'sutt'v + y'tvss'u}{sts't'uv} = \frac{x't' + y's'}{s't'}
+    = \frac{x'}{s'} + \frac{y'}{t'}
+  \end{align*}
+  and similarly we compute
+  \begin{align*}
+    \frac{x}{s} \cdot \frac{y}{t} = \frac{xy}{st} = \frac{xs'uyt'v}{sts't'uv} =
+    \frac{x'suy'tv}{sts't'uv} = \frac{x'y'}{s't'} = \frac{x'}{s'} \cdot \frac{y'}{t'}.
+  \end{align*}
+  To check the distributivity let $x,y,z \in R$ and $s,t,u \in S$. Then we get
+  \begin{align*}
+    \frac{x}{s} \left( \frac{y}{t} + \frac{z}{u} \right) =
+    \frac{x(yu + zt)}{stu} = \frac{xyu + xzt}{stu} = \frac{xyus + xzts}{s^2tu}
+    = \frac{xy}{st} + \frac{xz}{su} = \frac{x}{s} \frac{y}{t} + \frac{x}{s} \frac{z}{u}.
+  \end{align*}
+\end{proof}
+
+\smallskip
+\noindent
+We get that the localization satisfies a universal property.
+
+\smallskip
+\begin{lemm}{Universal property of the localization}{}
+  For a ring $R$ and a multiplicative subset $S \subseteq R$ consider the ring homomorphism
+  \begin{align*}
+    j: R & \longrightarrow S^{-1}R \\
+    x & \longmapsto \frac{x}{1}
+  \end{align*}
+  If $\varphi : R \to R'$ is a ring homomorphism such that $\varphi(S) \subseteq (R')^*$
+  then there exists a unique ring homomorphism $\overline{\varphi}: S^{-1}R \to R'$
+  such that the diagram
+  \begin{center}
+    \begin{tikzcd}
+      R \arrow[rr, "\varphi"] \arrow[dr, "j"'] & & R' \\
+      & S^{-1}R \arrow[ru, "\exists ! \; \overline{\varphi}"', dashed] &
+    \end{tikzcd}
+  \end{center}
+  commutes.
+\end{lemm}
+
+\begin{proof}
+  First we construct the homomorphism $\overline{\varphi}$. Since for every
+  $s \in S$ the image $\varphi(s)$ is invertible in $R'$ we define
+  \begin{align*}
+    \overline{\varphi} \left(\frac{x}{s} \right) = \varphi(x) \varphi(s)^{-1}.
+  \end{align*}
+  Then clearly
+  \begin{align*}
+    \varphi(x) = \varphi(x) \varphi(1)^{-1} = \overline{\varphi} \left(\frac{x}{1} \right)
+    = \overline{\varphi}(j(x)).
+  \end{align*}
+  Futhermore it follows immediately form the fact that $\varphi$ is a ring homomorphism
+  that $\overline\varphi$ is also one. It remains to check that $\overine\varphi$ is
+  well-defined. Let $(x,s) \sim (x',s')$ by the element $u \in S$. Then we get
+  \begin{align*}
+    \overline{\varphi} \left(\frac{x}{s} \right) = \varphi(x) \varphi(s)^{-1}
+    = \varphi(xs'u) \varphi(ss'u)^{-1} = \varphi(x'su) \varphi(ss'u)^{-1} = \varphi(x')
+    \varphi(s')^{-1} = \overline{\varphi} \left(\frac{x'}{s'} \right).
+  \end{align*}
+  Let $\tilde\varphi$ be another homomorphism that makes the diagram commute.
+  Then it follows that
+  \begin{align*}
+    \overline{\varphi} \left(\frac{x}{s} \right) = \varphi(x) \varphi(s)^{-1}
+    = \tilde{\varphi} \left(\frac{x}{1} \right) \tilde{\varphi} \left(\frac{s}{1} \right)^{-1}
+    = \tilde{\varphi} \left(\frac{x}{1} \right) \tilde{\varphi} \left(\frac{1}{s} \right)
+    = \tilde{\varphi} \left(\frac{x}{s} \right).
+  \end{align*}
+\end{proof}
+
+\smallskip
+\noindent
+Similarly to the quotient ring the localization also preserves the property of being
+noetherian.
+
+\begin{lemm}{}{}
+  If $R$ is a noetherian ring and $S \subseteq R$ is a multiplicative subset then
+  $S^{-1}R$ is noetherian.
+\end{lemm}
+
+\begin{proof}
+  From Hilbert's basis theorem it follows that $R[T]$ is noetherian. Considering the surjective
+  homomorphism $R[T] \to S^{-1}R$, which sends constants $x \in R[T]$ to $x$ and sends
+  $T$ to $\frac{1}{s}$ we get that $S^{-1}R$ is noetherian.
+\end{proof}
+
+\subsection{Prime ideals and maximal ideals}
+
+\begin{defi}{}{}
+  Let $R$ be a ring. An ideal $I  \subseteq R$ is called a prime ideal if the quotient ring
+  $R/I$ is a domain.
+\end{defi}
+
+\smallskip
+\noindent
+We have the following equivalent characterization of prime ideals:
+
+\smallskip
+
+\begin{lemm}{}{}
+  Let $R$ be a ring. An ideal $I \subseteq R$ is a prime ideal if and only if for all
+  $a,b \in R$ with $ab \in I$ it follows $a \in I$ or $b \in I$.
+\end{lemm}
+
+\begin{proof}
+  Let first $R/I$ be a domain and $a,b \in R$ be such that $ab \in I$.
+  Then it follows that in the quotient $R/I$ we have $(a+I)(b+I) = ab + I = 0 + I$ and
+  because $R/I$ is a domain it follows that $a + I = 0 + I$ or $b + I = 0 + I$.
+  Hence $a \in I$ or $b \in I$.
+
+  \smallskip
+  \noindent
+  Conversely assume that $I \subseteq R$ is a prime ideal and let
+  $(a + I)(b + I) = 0 + I$. So it follows that $ab \in I$ and because $I$ is prime
+  we have $a \in I$ or $b \in I$. So $a + I = 0 + I$ or $b + I = 0 + I$ making
+  $R/I$ a domain.
+  
+\end{proof}
+
+\smallskip
+
+\begin{defi}{}{}
+  Let $R$ be a ring. An ideal $I \subseteq R$ is called maximal if $I \neq R$ and for
+  all ideals $J \subseteq R$ with $I \subseteq J$ it follows that $J = I$ or $J = R$.
+\end{defi}
+
+\begin{rem}{}{}
+  For any ideal $I \subseteq R$ the projection homomorphism
+  \begin{align*}
+    \pi: R & \longrightarrow \faktor{R}{I} \\
+    x & \longmapsto x + I
+  \end{align*}
+  induces a bijection between the set of ideals $J \subseteq R$ with $I \subseteq J$ and
+  the set of ideals of the quotient ring $R/I$.
+  This happens by mapping an ideal $\overline{J} \subseteq R/I$ to $\pi^{-1}(\overline{J})$.
+  It is easy to check that this is a homomorphism and that the inverse map is given by
+  mapping an ideal $I \subseteq J \subseteq R$ to $\pi(J)$, which is an ideal because
+  the projection is surjective.
+\end{rem}
+
+\smallskip
+\noindent
+This remark becomes useful in formulating the following
+important characterization of maximal ideals.
+
+\smallskip
+\begin{lemm}{}{}
+  Let $R$ be a ring and $I \subseteq R$ be an ideal. Then $I$ is maximal if and only if
+  the quotient ring $R/I$ is a field.
+\end{lemm}
+
+\begin{proof}
+  Assume that $I$ is maximal. This is the case if and only if
+  there only exist two ideals $J \subseteq R$
+  with $I \suseteq J$. By the previous remark this is equivalent to
+  $R/I$ only having two ideals, which must be $(0),(1) \subseteq R/I$. This is the
+  case if and only if $R/I$ is a field.
+\end{proof}
+
+\begin{theo}{}{}
+  If $R$ is a ring and $R \neq 0$ then $R$ contains a maximal ideal.
+\end{theo}
+
+\begin{proof}
+  Let $\cM$ be the set of all ideals $I \subseteq R$, which are not $R$ itself.
+  Then we get that $\cM \neq \varnothing$ since $(0) \in \cM$. If $\cM' \subseteq \cM$
+  is a totally ordered subset then the union $I' \coloneqq \bicup_{I \in \cM'} I$
+  is an ideal and hence an upper bound. By Zorns Lemma it follows that $\cM$ contains
+  a maximal ideal.
+  
+\end{proof}
+
+\end{document}

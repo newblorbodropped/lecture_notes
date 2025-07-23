@@ -1,0 +1,164 @@
+\documentclass[../notes.tex]{subfiles}
+
+\begin{document}
+In the following chapter $k$ always denotes an algebraically closed field.
+
+\smallskip
+
+\begin{defi}{}{}
+  Let $M \subseteq k[\uT] \coloneqq k[T_1, \dots, T_n]$. We define $V(M)$ to be
+  the zero locus of all elements of $M$. That means
+  \begin{align*}
+    V(M) \coloneqq \{x \in k^n \mid f(x) = 0 \; \forall f \in M\}.
+  \end{align*}
+  For a subset $X \subseteq k^n$ we define
+  \begin{align*}
+    I(X) \coloneqq \{f \in k[\uT] \mid f(x) = 0 \; \forall x \in X\}.
+  \end{align*}
+  This gives us a correspondence between subsets of $k[\uT]$ and subsets of $k^n$.
+\end{defi}
+
+\smallskip
+\noindent
+Right away there are some statements that can be observed about these definitions.
+
+\smallskip
+
+\begin{rem}{}{}
+  \begin{enumerate}[($(i)$)]
+  \item The operators $V$ and $I$ are inclusion reversing. That means if
+    $M \subseteq M' \subseteq k[\uT]$ then it follows that $V(M) \supseteq V(M')$
+    and similarly if $X \subseteq X' \subseteq k^n$ then $I(X) \supseteq I(X')$.
+    Furthermore for all $X \subseteq k^n$ it holds that $X \subset V(I(X))$.
+
+  \item For all $X \subseteq k^n$ the set $I(X) \subseteq k[\uT]$ is an ideal.
+  \end{enumerate}
+\end{rem}
+
+\begin{proof}
+  $(i)$: Let $M \subseteq M' \subseteq k[\uT]$ and $X \subseteq X' \subseteq k^n$.
+  Then for a point $x \in k^n$ then if $f(x) = 0$ for all $f \in M'$ then in particular
+  $f(x) = 0$ for all $f \in M$. Similarly if some $f \in k[\uT]$ vanishes everywhere on $X'$
+  then in particular it vanishes everywhere on $X$.
+
+  \noindent Lastly if $x \in X$ and $f \in I(X)$ then $f(x) = 0$ by definition of $I(X)$
+  and hence $X \subset V(I(X))$.
+
+  \smallskip
+  \noindent
+  $(ii)$: Now let $f_1, f_2 \in I(X)$ and $x \in X$. Then it follows that
+  $(f_1 + f_2)(x) = f_1(x) + f_2(x) = 0 + 0 = 0$. If now $g \in k[\uT]$ then
+  $(gf_1)(x) = g(x)f_1(x) = g(x) \cdot 0 = 0$. Hence $I(X)$ is an ideal in $k[\uT]$.
+  
+\end{proof}
+
+\noindent
+With a similar proof to the second statement of the remark one can also show that
+for a subset $M \subset k[\uT]$ we have $V(M) = V((M))$.
+
+\smallskip
+\begin{defi}{}{}
+  A subset $X \subset k^n$ is called algebraic if $X = V(M)$ for some subset
+  $M \subseteq k[\uT]$. We call an ideal $I \subseteq k[\uT]$ admissable
+  if and only if $I = I(X)$ for some $X \subseteq k^n$.
+\end{defi}
+
+\smallskip
+\noindent It should be remarked that for $X \subseteq k^n$ there exists $M \subseteq k[\uT]$
+with $X = V(M)$ if and only if there exists an ideal $I \subseteq k[\uT]$
+such that $X = V(I)$.
+
+\smallskip
+\begin{lemm}{}{}
+  Let $\cA$ be the set of algebraic subsets of $k^n$ and $\cB$ be the set of
+  admissable ideals of $k[\uT]$. Then the
+  maps $I|_\cA: \cA \to \cB$ and $V|_\cB: \cB \to \cA$ are bijections and inverses of one another.
+\end{lemm}
+
+\begin{proof}
+  Let $X$ be an algebraic subset. We always have $X \subseteq V(I(X))$.
+  Since $X$ is algebraic there exists an ideal $J \subseteq k[\uT]$ such that $X = V(J)$.
+  Then we claim that $J \subseteq I(V(J))$. If $f \in J$ and $x \in V(J)$ then
+  $f(x) = 0$ by definition. It follows that $f \in I(V(J))$ and hence our claim.
+  From this and the fact that $V$ is inclusion reversing we  conclude that
+  $X = V(J) \supseteq V(I(V(J))) = V(I(X))$.
+  
+\end{proof}
+
+\smallskip
+\noindent
+Inn the following chapter we seek to understand what algebraic sets and admissable ideals
+are and we are looking for alternative ways to characterize them. The following statement
+gives a bit more structure to the algebraic subsets of $k^n$.
+
+\smallskip
+\begin{lemm}{}{}
+  The algebraic subsets of $k^n$ are the closed subsets of a topology, which we
+  call the Zariski topology on $k^n$.
+\end{lemm}
+
+\begin{proof}
+  It is easy to see that $V(\{1\}) = \varnothing$ and $V(\{0\}) = k^n$.
+  Let $\{M_i\}_{i}$ be a collection of subsets of $k[\uT]$ and $M_1, M_2 \in k[\uT]$.
+  Then we claim that $V(\bigcup_i M_i) = \bigcap_i V(M_i)$ and
+  \begin{align*}
+    V(M_1M_2) = V(\{f_1f_2 \mid f_1 \in M_1, \; f_2 \in M_2 \}) = V(M_1) \cup V(M_2).
+  \end{align*}
+  We first check that the first statement holds. If $x \in V(\bigcup_ i M_i)$
+  then if $f \in M_i$ for some $i$ it follows that $f(x) = 0$. Hence $x \in V(M_i)$,
+  where $i$ was chosen arbitrarily. So we get $V(\bigcup_i M_i) \subseteq \bigcap_i V(M_i)$.
+  On the other hand if $x \in V(M_i)$ for all $i$ then $f(x) = 0$ for all $f \in \bigcup_i M_i$.
+  Therefore $V(\bigcup_i M_i) \supseteq \bigcap_i V(M_i)$.
+
+  \noindent Now we check that the second statement holds. If $x \in V(M_1)$ and we have
+  $f \in M_1$ and $g \in M_2$ respectively it follows that
+  $(fg)(x) = f(x)g(x) = g(x) \cdot 0 = 0$. Hence $x \in V(M_11M_2)$.
+  On the other hand if $x \notin V(M_1) \cup V(M_2)$ there must exist $f \in M_1$ and
+  $g \in M_2$ such that $f(x) \neq 0$ and $g(x) \neq 0$. So $(fg)(x) = f(x) g(x) \neq 0$,
+  since $k[\uT]$ is a domain. Therefore $x \notin V(M_1 M_2)$.
+  
+\end{proof}
+
+\begin{ex}{}{}
+  In an example from the introduction we have already seen that the Zariski topology on
+  $k^1$ is the cofinite topology. Recall that we have shown the closed sets to be all finite
+  sets and $k$ itself.
+\end{ex}
+
+\subsection{First properties of the Zariski topology}
+
+We notice that the Zariski topology is (T1). That means that singletons $\{x\}, \; x \in k^n$
+are closed sets. Given $x = (x_1, \dots, x_n)\in k^n$ we have
+\begin{align*}
+  V(T_1 - x_1, \dots, T_n - x_n) = \{x\}.
+\end{align*}
+We give the ideal corresponding to $\{x\}$ a special name.
+
+\smallskip
+\begin{defi}{}{}
+  For a point $x \in k^n$ we write $\fm_x = I(\{x\})$.
+\end{defi}
+
+\smallskip
+\noindent
+We can immediately observe that for a point $x = (x_1, \dots, x_n) \in k^n$
+$\fm_x$ is the kernel of the evaluation homomorphism
+\begin{align*}
+  \ev_x : k[T_1, \dots, T_n] & \longrightarrow k \\
+  f & \longmapsto f(x) = f(x_1, \dots, x_n).
+\end{align*}
+With the help of this view on $\fm_x$ we can colclude the following lemma.
+
+\smallskip
+\begin{lemm}{}{}
+  Let $x = (x_1, \dots, x_n) \in k^n$. Then $\fm_x = (T_1 - x_1, \dots, T_n - x_n)$.
+\end{lemm}
+
+\begin{proof}
+  We denote the ideal $(T_1 - x_1, \dots, T_n - x_n)$ with $I$. We have already shown that
+  $J \subseteq I(V(J))$ for all ideals $J \subseteq k[\uT]$. In particular $I \subseteq \fm_x$.
+  
+\end{proof}
+
+
+\end{document}
