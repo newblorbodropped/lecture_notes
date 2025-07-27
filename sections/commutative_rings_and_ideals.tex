@@ -145,7 +145,7 @@ This definition is characterized by an eqivalent property stated in the followin
   \noindent
   Due to $R$ being noetherian we get that $I$ is finitely generated. Let
   $\{f_1, \dots, f_n\} \subset I$ be a finite generating set. We then define
-  \begin{align*}.
+  \begin{align*}
     m \coloneqq \max \{l \in \bN \mid \exists i \in \{1, \dots, n\}: \; f_i \notin I_l\}.
   \end{align*}
   Since for every $f_i$ there exists an index $l \in \bN$ such that $f_i \in I_l$ this subset
@@ -410,7 +410,7 @@ We get that the localization satisfies a universal property.
     = \overline{\varphi}(j(x)).
   \end{align*}
   Futhermore it follows immediately form the fact that $\varphi$ is a ring homomorphism
-  that $\overline\varphi$ is also one. It remains to check that $\overine\varphi$ is
+  that $\overline\varphi$ is also one. It remains to check that $\overline\varphi$ is
   well-defined. Let $(x,s) \sim (x',s')$ by the element $u \in S$. Then we get
   \begin{align*}
     \overline{\varphi} \left(\frac{x}{s} \right) = \varphi(x) \varphi(s)^{-1}
@@ -511,7 +511,7 @@ important characterization of maximal ideals.
 \begin{proof}
   Assume that $I$ is maximal. This is the case if and only if
   there only exist two ideals $J \subseteq R$
-  with $I \suseteq J$. By the previous remark this is equivalent to
+  with $I \subseteq J$. By the previous remark this is equivalent to
   $R/I$ only having two ideals, which must be $(0),(1) \subseteq R/I$. This is the
   case if and only if $R/I$ is a field.
 \end{proof}
@@ -523,7 +523,7 @@ important characterization of maximal ideals.
 \begin{proof}
   Let $\cM$ be the set of all ideals $I \subseteq R$, which are not $R$ itself.
   Then we get that $\cM \neq \varnothing$ since $(0) \in \cM$. If $\cM' \subseteq \cM$
-  is a totally ordered subset then the union $I' \coloneqq \bicup_{I \in \cM'} I$
+  is a totally ordered subset then the union $I' \coloneqq \bigcup_{I \in \cM'} I$
   is an ideal and hence an upper bound. By Zorns Lemma it follows that $\cM$ contains
   a maximal ideal.
   
